@@ -25,7 +25,7 @@ export default function Aprobadas({ navigation }: any) {
 
   const saveApproved = async () => {
     await AsyncStorage.setItem(STORAGE_KEY_APPROVED, JSON.stringify(approvedSubjects));
-    navigation.goBack();
+    navigation.navigate('Main', { screen: 'Home', params: { refresh: Date.now() } });
   };
 
   if (loading) return null;
@@ -35,41 +35,45 @@ export default function Aprobadas({ navigation }: any) {
   const unselectedMaterias = materias.filter((m) => !approvedSubjects.includes(m.label));
 
   return (
-    <View style={{ flex: 1, padding: 24 }}>
-      <Card style={{ marginBottom: 16 }}>
-        <Card.Title title="Selecciona tus materias aprobadas" />
+    <View style={{ flex: 1, padding: 0, backgroundColor: '#fff' }}>
+      <Card style={{ margin: 16, marginBottom: 0 }}>
+        <Card.Title title="Selecciona tus materias aprobadas" titleStyle={{ color: '#AE1131', fontWeight: 'bold', fontSize: 24 }} />
         <Card.Content>
           <ProgressBar progress={totalMaterias > 0 ? approvedSubjects.length / totalMaterias : 0} color="#AE1131" style={{ marginBottom: 12, height: 10, borderRadius: 5 }} indeterminate={false} />
-          <Text style={{ marginBottom: 16, color: '#AE1131', fontWeight: 'bold', textAlign: 'center' }}>{approvedSubjects.length} de {totalMaterias} materias aprobadas</Text>
-          <ScrollView style={{ maxHeight: 400 }}>
+          <Text style={{ marginBottom: 16, color: '#AE1131', fontWeight: 'bold', textAlign: 'center', fontSize: 16 }}>{approvedSubjects.length} de {totalMaterias} materias aprobadas</Text>
+          <ScrollView style={{ maxHeight: 400, marginBottom: 80 }}>
             {unselectedMaterias.map((m) => (
-              <View key={m.codigo} style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 8 }}>
+              <View key={m.codigo} style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 16 }}>
                 <Checkbox
                   status={approvedSubjects.includes(m.label) ? 'checked' : 'unchecked'}
                   onPress={() => toggleApproved(m.label)}
+                  color="#AE1131"
                 />
-                <Text>{m.label}</Text>
+                <Text style={{ fontSize: 18, marginLeft: 8, color: '#222' }}>{m.label}</Text>
               </View>
             ))}
             {selectedMaterias.length > 0 && <>
               <Divider style={{ marginVertical: 12 }} />
-              <Text style={{ marginBottom: 8, fontWeight: 'bold' }}>Seleccionadas:</Text>
+              <Text style={{ marginBottom: 8, fontWeight: 'bold', fontSize: 16 }}>Seleccionadas:</Text>
               {selectedMaterias.map((m) => (
-                <View key={m.codigo} style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 8 }}>
+                <View key={m.codigo} style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 16 }}>
                   <Checkbox
                     status={'checked'}
                     onPress={() => toggleApproved(m.label)}
+                    color="#AE1131"
                   />
-                  <Text>{m.label}</Text>
+                  <Text style={{ fontSize: 18, marginLeft: 8, color: '#222' }}>{m.label}</Text>
                 </View>
               ))}
             </>}
           </ScrollView>
-          <Button mode="contained" onPress={saveApproved} style={{ marginTop: 16, backgroundColor: '#AE1131' }} labelStyle={{ color: '#fff' }}>
-            Guardar
-          </Button>
         </Card.Content>
       </Card>
+      <View style={{ position: 'absolute', left: 0, right: 0, bottom: 0, padding: 16, backgroundColor: '#fff', borderTopWidth: 1, borderTopColor: '#eee' }}>
+        <Button mode="contained" onPress={saveApproved} style={{ backgroundColor: '#AE1131', borderRadius: 8 }} labelStyle={{ color: '#fff', fontSize: 18, fontWeight: 'bold' }}>
+          Guardar
+        </Button>
+      </View>
     </View>
   );
 } 

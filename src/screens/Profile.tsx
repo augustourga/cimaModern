@@ -18,20 +18,20 @@ export default function Profile({ route, navigation }: any) {
 
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', padding: 24 }}>
-      <Card style={{ width: 320, marginBottom: 24 }}>
-        <Card.Title title="Perfil" />
+      <Card style={{ width: 340, marginBottom: 28, borderRadius: 12, elevation: 2 }}>
+        <Card.Title title="Perfil" titleStyle={{ color: '#AE1131', fontWeight: 'bold', fontSize: 24 }} style={{ marginBottom: -12 }} />
         <Card.Content>
-          <Text variant="titleMedium">Nombre: {user.name}</Text>
-          <Text variant="titleMedium">Carrera: {user.career}</Text>
+          <Text style={{ fontSize: 20, fontWeight: 'bold', color: '#222', marginBottom: 6 }}>Nombre: <Text style={{ fontWeight: 'normal' }}>{user.name}</Text></Text>
+          <Text style={{ fontSize: 18, color: '#AE1131', marginBottom: 12 }}>Carrera: <Text style={{ color: '#222' }}>{user.career}</Text></Text>
         </Card.Content>
       </Card>
-      <Button style={{ marginTop: 24, backgroundColor: '#AE1131' }} mode="contained" labelStyle={{ color: '#fff' }} onPress={() => navigation.navigate('Aprobadas')}>
+      <Button style={{ marginTop: 24, backgroundColor: '#AE1131', borderRadius: 8 }} mode="contained" labelStyle={{ color: '#fff', fontSize: 18, fontWeight: 'bold' }} onPress={() => navigation.navigate('Aprobadas')}>
         Configura tus materias aprobadas
       </Button>
-      <Button style={{ marginTop: 16, backgroundColor: '#AE1131' }} mode="contained" labelStyle={{ color: '#fff' }} onPress={() => navigation.navigate('WorkTime')}>
+      <Button style={{ marginTop: 16, backgroundColor: '#AE1131', borderRadius: 8 }} mode="contained" labelStyle={{ color: '#fff', fontSize: 18, fontWeight: 'bold' }} onPress={() => navigation.navigate('WorkTime')}>
         Configura tu horario laboral
       </Button>
-      <Button style={{ marginTop: 16 }} mode="outlined" onPress={() => navigation.replace('Login')}>
+      <Button style={{ marginTop: 16, borderRadius: 8 }} mode="outlined" labelStyle={{ fontSize: 18, fontWeight: 'bold' }} onPress={() => navigation.replace('Login')}>
         Cerrar sesión
       </Button>
     </View>

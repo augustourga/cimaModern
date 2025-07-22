@@ -10,5 +10,11 @@
     "password": "alumno123",
     "name": "Alumno Uno",
     "career": "Ingeniería Industrial"
+  },
+  {
+    "username": "augustourga",
+    "password": "cima2024",
+    "name": "Augusto Urga",
+    "career": "Ingeniería en Sistemas"
   }
 ] 

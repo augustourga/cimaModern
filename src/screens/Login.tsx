@@ -14,7 +14,7 @@ export default function Login({ navigation }: any) {
       (u) => u.username === inputUsername && u.password === inputPassword
     );
     if (user) {
-      navigation.replace('Home', { user });
+      navigation.replace('Main', { user });
     } else {
       setSnackbarMessage('Usuario o Contraseña Incorrecta');
       setSnackbarVisible(true);

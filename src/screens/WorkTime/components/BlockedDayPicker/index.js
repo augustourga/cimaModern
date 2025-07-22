@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { Text, Button as PaperButton, Card } from 'react-native-paper';
 import DateTimePicker from 'react-native-modal-datetime-picker';
 
 import styles from './styles';
@@ -18,16 +18,28 @@ class BlockedDayPicker extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.dayText}>{this.props.day}</Text>
-        <View style={styles.pickerContainer}>
-          <TouchableOpacity onPress={this.toggleStartDatePicker}>
-            <Text style={styles.touchableButton}>{this.props.startTime ? this.props.startTime : '-'}</Text>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={this.toggleEndDatePicker}>
-            <Text style={styles.touchableButton}>{this.props.endTime ? this.props.endTime : '-'}</Text>
-          </TouchableOpacity>
-        </View>
+      <Card style={{ marginVertical: 6, borderRadius: 8, elevation: 0, backgroundColor: '#fafafa' }}>
+        <Card.Content style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingVertical: 0 }}>
+          <Text style={{ fontSize: 17, fontWeight: 'bold', color: '#AE1131', minWidth: 90 }}>{this.props.day}</Text>
+          <PaperButton
+            mode="contained"
+            onPress={this.toggleStartDatePicker}
+            style={{ backgroundColor: '#AE1131', borderRadius: 6, marginHorizontal: 2 }}
+            labelStyle={{ color: '#fff', fontSize: 15 }}
+            compact={true}
+          >
+            {this.props.startTime ? this.props.startTime : 'Inicio'}
+          </PaperButton>
+          <PaperButton
+            mode="contained"
+            onPress={this.toggleEndDatePicker}
+            style={{ backgroundColor: '#AE1131', borderRadius: 6, marginHorizontal: 2 }}
+            labelStyle={{ color: '#fff', fontSize: 15 }}
+            compact={true}
+          >
+            {this.props.endTime ? this.props.endTime : 'Fin'}
+          </PaperButton>
+        </Card.Content>
         <DateTimePicker
           isVisible={this.state.showStartDatePicker}
           mode="time"
@@ -40,7 +52,7 @@ class BlockedDayPicker extends Component {
           onCancel={this.toggleEndDatePicker}
           onConfirm={this.props.setEndTime}
         />
-      </View>
+      </Card>
     );
   }
 }

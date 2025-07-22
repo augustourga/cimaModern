@@ -1,62 +1,100 @@
 import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { Provider as PaperProvider, Button } from 'react-native-paper';
-import { View, Linking } from 'react-native';
+import { Provider as PaperProvider, Button, Text, Card, ProgressBar } from 'react-native-paper';
+import { View } from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Login from './src/screens/Login';
 import WishedSubjects from './src/screens/WishedSubjects';
 import Profile from './src/screens/Profile';
 import Planner from './src/screens/Planner';
 import Aprobadas from './src/screens/Aprobadas';
 import WorkTime from './src/screens/WorkTime';
+import materias from './src/mock/materias.json';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import ConfettiCannon from 'react-native-confetti-cannon';
 
 const Stack = createNativeStackNavigator();
+const Tab = createBottomTabNavigator();
 
-const Options = [
-  { text: 'Planificar Cursada', route: 'Planner' },
-  { text: 'Personalizar Alternativas', route: 'WishedSubjects' },
-  { text: 'Perfil', route: 'Profile' },
-  {
-    text: 'Siga',
-    route: 'Siga',
-    onClick: () => {
-      Linking.openURL('http://siga.frba.utn.edu.ar/');
-    },
-  },
-];
-
-function HomeScreen({ navigation, route }: any) {
-  const user = route.params?.user;
-  const wishedSubjects = route.params?.wishedSubjects || [];
+function HomeScreen(props: any) {
+  // Leer user y wishedSubjects de props (vienen desde MainTabs)
+  const user = props.user || { name: 'Usuario', career: 'Sin datos' };
+  const wishedSubjects = props.wishedSubjects || [];
+  const navigation = props.navigation;
+  const totalMaterias = materias.length;
+  const [approvedSubjects, setApprovedSubjects] = React.useState<string[]>([]);
+  const [showCelebration, setShowCelebration] = React.useState(false);
+  const [refreshKey, setRefreshKey] = React.useState(0);
+  React.useEffect(() => {
+    if (props.route?.params?.refresh) {
+      setRefreshKey((k: number) => k + 1);
+    }
+  }, [props.route?.params?.refresh]);
+  React.useEffect(() => {
+    AsyncStorage.getItem('approvedSubjects').then((data: any) => {
+      if (data) setApprovedSubjects(JSON.parse(data));
+    });
+  }, [refreshKey]);
+  React.useEffect(() => {
+    if (approvedSubjects.length === totalMaterias && totalMaterias > 0) {
+      setShowCelebration(true);
+      setTimeout(() => setShowCelebration(false), 5000);
+    }
+  }, [approvedSubjects, totalMaterias]);
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', padding: 24 }}>
-      {Options.map(option => (
-        <Button
-          key={option.route}
-          mode="contained"
-          style={{ marginVertical: 8, width: 250, backgroundColor: '#AE1131' }}
-          labelStyle={{ color: '#fff' }}
-          onPress={
-            option.route === 'Profile'
-              ? () => navigation.navigate('Profile', { user, wishedSubjects })
-              : option.onClick || (() => navigation.navigate(option.route))
-          }
-        >
-          {option.text}
-        </Button>
-      ))}
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', padding: 24, backgroundColor: '#fff' }}>
+      <Text style={{ fontSize: 38, fontWeight: 'bold', marginBottom: 4, color: '#AE1131', letterSpacing: 0.5 }}>
+        ¡Hola, {user.name}! {approvedSubjects.length === totalMaterias && totalMaterias > 0 ? '🎓' : ''}
+      </Text>
+      <Text style={{ fontSize: 18, color: '#222', marginBottom: 20 }}>{user.career}</Text>
+      {showCelebration && (
+        <ConfettiCannon count={120} origin={{x: 180, y: 0}} fadeOut={true} explosionSpeed={350} fallSpeed={2500} />
+      )}
+      <Card style={{ width: 340, marginBottom: 28, borderRadius: 12, elevation: 2 }}>
+        <Card.Title title="Progreso en la carrera" titleStyle={{ color: '#AE1131', fontWeight: 'bold', fontSize: 20 }} style={{ marginBottom: -12 }} />
+        <Card.Content>
+          <ProgressBar progress={totalMaterias > 0 ? approvedSubjects.length / totalMaterias : 0} color="#AE1131" style={{ marginBottom: 12, height: 12, borderRadius: 6 }} indeterminate={false} />
+          <Text style={{ marginBottom: 8, color: '#AE1131', fontWeight: 'bold', textAlign: 'center', fontSize: 16 }}>{approvedSubjects.length} de {totalMaterias} materias aprobadas</Text>
+        </Card.Content>
+      </Card>
+      <Button mode="contained" style={{ marginVertical: 10, width: 260, backgroundColor: '#AE1131', borderRadius: 8 }} labelStyle={{ color: '#fff', fontSize: 18, fontWeight: 'bold' }} onPress={() => navigation.navigate('Planner')}>Ir al Planificador</Button>
+      <Button mode="contained" style={{ marginVertical: 10, width: 260, backgroundColor: '#AE1131', borderRadius: 8 }} labelStyle={{ color: '#fff', fontSize: 18, fontWeight: 'bold' }} onPress={() => navigation.navigate('WishedSubjects')}>Materias Deseadas</Button>
+      <Button mode="contained" style={{ marginVertical: 10, width: 260, backgroundColor: '#AE1131', borderRadius: 8 }} labelStyle={{ color: '#fff', fontSize: 18, fontWeight: 'bold' }} onPress={() => navigation.navigate('Main', { screen: 'Profile', params: { user, wishedSubjects } })}>Perfil</Button>
     </View>
   );
 }
 
-function PlaceholderScreen({ route }: any) {
+function MainTabs({ route }: any) {
+  // Obtener el usuario desde los params de navegación raíz
+  const user = route?.params?.user;
+  const wishedSubjects = route?.params?.wishedSubjects;
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Button mode="outlined" disabled>
-        {route.name} (En construcción)
-      </Button>
-    </View>
+    <Tab.Navigator
+      screenOptions={({ route }) => ({
+        headerShown: false,
+        tabBarActiveTintColor: '#AE1131',
+        tabBarInactiveTintColor: '#888',
+        tabBarStyle: { backgroundColor: '#fff', borderTopColor: '#eee' },
+        tabBarIcon: ({ color, size }) => {
+          let iconName = 'home';
+          if (route.name === 'Home') iconName = 'home';
+          else if (route.name === 'Planner') iconName = 'calendar-clock';
+          else if (route.name === 'WishedSubjects') iconName = 'checkbox-marked-outline';
+          else if (route.name === 'Profile') iconName = 'account-circle';
+          return <Icon name={iconName} color={color} size={size} />;
+        },
+      })}
+    >
+      <Tab.Screen name="Home" options={{ title: 'Inicio' }}>
+        {props => <HomeScreen {...props} user={user} wishedSubjects={wishedSubjects} />}
+      </Tab.Screen>
+      <Tab.Screen name="Planner" component={Planner} options={{ title: 'Planificador' }} />
+      <Tab.Screen name="WishedSubjects" component={WishedSubjects} options={{ title: 'Materias' }} />
+      <Tab.Screen name="Profile" component={Profile} options={{ title: 'Perfil' }} />
+    </Tab.Navigator>
   );
 }
 
@@ -65,14 +103,10 @@ export default function App() {
     <PaperProvider>
       <SafeAreaProvider>
         <NavigationContainer>
-          <Stack.Navigator initialRouteName="Login">
-            <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
-            <Stack.Screen name="Home" component={HomeScreen} options={{ title: 'CIMA - Inicio' }} />
-            <Stack.Screen name="Planner" component={Planner} />
-            <Stack.Screen name="WishedSubjects" component={WishedSubjects} />
-            <Stack.Screen name="Profile" component={Profile} />
+          <Stack.Navigator initialRouteName="Login" screenOptions={{ headerShown: false }}>
+            <Stack.Screen name="Login" component={Login} />
+            <Stack.Screen name="Main" component={MainTabs} />
             <Stack.Screen name="Aprobadas" component={Aprobadas} options={{ title: 'Materias Aprobadas' }} />
-            <Stack.Screen name="Siga" component={PlaceholderScreen} />
             <Stack.Screen name="WorkTime" component={WorkTime} options={{ title: 'Horario Laboral' }} />
           </Stack.Navigator>
         </NavigationContainer>

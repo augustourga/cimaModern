@@ -30,33 +30,36 @@ export default function WishedSubjects({ navigation }: any) {
   const saveSubjects = async () => {
     await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(selected));
     setSnackbarVisible(true);
-    navigation.navigate('Home', { wishedSubjects: selected });
+    navigation.navigate('Main', { screen: 'Home', params: { wishedSubjects: selected } });
   };
 
   // Excluir materias aprobadas
   const materiasDisponibles = materias.filter((m) => !approvedSubjects.includes(m.label));
 
   return (
-    <View style={{ flex: 1, padding: 24 }}>
-      <Card style={{ marginBottom: 16 }}>
-        <Card.Title title="Materias que deseas cursar" />
+    <View style={{ flex: 1, padding: 0, backgroundColor: '#fff' }}>
+      <Card style={{ margin: 16, marginBottom: 0 }}>
+        <Card.Title title="Materias que deseas cursar" titleStyle={{ color: '#AE1131', fontWeight: 'bold', fontSize: 24 }} />
         <Card.Content>
-          <ScrollView style={{ maxHeight: 400 }}>
+          <ScrollView style={{ maxHeight: 400, marginBottom: 80 }}>
             {materiasDisponibles.map((m) => (
-              <View key={m.codigo} style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 8 }}>
+              <View key={m.codigo} style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 16 }}>
                 <Checkbox
                   status={selected.includes(m.label) ? 'checked' : 'unchecked'}
                   onPress={() => toggleSubject(m.label)}
+                  color="#AE1131"
                 />
-                <Text>{m.label}</Text>
+                <Text style={{ fontSize: 18, marginLeft: 8, color: '#222' }}>{m.label}</Text>
               </View>
             ))}
           </ScrollView>
-          <Button mode="contained" onPress={saveSubjects} style={{ marginTop: 16, backgroundColor: '#AE1131' }} labelStyle={{ color: '#fff' }}>
-            Guardar
-          </Button>
         </Card.Content>
       </Card>
+      <View style={{ position: 'absolute', left: 0, right: 0, bottom: 0, padding: 16, backgroundColor: '#fff', borderTopWidth: 1, borderTopColor: '#eee' }}>
+        <Button mode="contained" onPress={saveSubjects} style={{ backgroundColor: '#AE1131', borderRadius: 8 }} labelStyle={{ color: '#fff', fontSize: 18, fontWeight: 'bold' }}>
+          Guardar
+        </Button>
+      </View>
       <Snackbar
         visible={snackbarVisible}
         onDismiss={() => setSnackbarVisible(false)}
