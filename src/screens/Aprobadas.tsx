@@ -32,7 +32,9 @@ export default function Aprobadas({ navigation: navProp }: any) {
       console.error('No hay usuario en AsyncStorage.');
       return;
     }
-    navigation.navigate('Main', { screen: 'Home', params: { refresh: Date.now() } });
+    const parsedUser = JSON.parse(user);
+    navigation.navigate('Main', { screen: 'Home', params: { user: parsedUser, refresh: Date.now() } });
+    navigation.navigate('Main', { screen: 'Profile', params: { user: parsedUser } });
   };
 
   if (loading) return null;

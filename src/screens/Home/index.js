@@ -4,6 +4,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useFocusEffect, useNavigation, useRoute } from '@react-navigation/native';
 
 import Button from '../../component/Button';
+import { useUser } from './UserContext';
 
 import styles from './styles';
 
@@ -21,7 +22,7 @@ const Options = [
 ];
 
 function Home(props) {
-  const user = props.user || { name: 'Usuario', career: 'Sin datos' };
+  const { user } = useUser();
   const [approvedSubjects, setApprovedSubjects] = useState([]);
   const navigation = props.navigation;
   const route = props.route;

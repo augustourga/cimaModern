@@ -15,13 +15,14 @@ import WorkTime from './src/screens/WorkTime';
 import materias from './src/mock/materias.json';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import ConfettiCannon from 'react-native-confetti-cannon';
+import { UserProvider } from './src/screens/Home/UserContext';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
 function HomeScreen(props: any) {
-  // Leer user y wishedSubjects de props (vienen desde MainTabs)
-  const user = props.user || { name: 'Usuario', career: 'Sin datos' };
+  // Prioriza el usuario de los params si existe
+  const user = props.route?.params?.user || props.user || { name: 'Usuario', career: 'Sin datos' };
   const wishedSubjects = props.wishedSubjects || [];
   const navigation = props.navigation;
   const totalMaterias = materias.length;
@@ -62,7 +63,7 @@ function HomeScreen(props: any) {
       </Card>
       <Button mode="contained" style={{ marginVertical: 10, width: 260, backgroundColor: '#AE1131', borderRadius: 8 }} labelStyle={{ color: '#fff', fontSize: 18, fontWeight: 'bold' }} onPress={() => navigation.navigate('Planner')}>Ir al Planificador</Button>
       <Button mode="contained" style={{ marginVertical: 10, width: 260, backgroundColor: '#AE1131', borderRadius: 8 }} labelStyle={{ color: '#fff', fontSize: 18, fontWeight: 'bold' }} onPress={() => navigation.navigate('WishedSubjects')}>Materias Deseadas</Button>
-      <Button mode="contained" style={{ marginVertical: 10, width: 260, backgroundColor: '#AE1131', borderRadius: 8 }} labelStyle={{ color: '#fff', fontSize: 18, fontWeight: 'bold' }} onPress={() => navigation.navigate('Main', { screen: 'Profile', params: { user, wishedSubjects } })}>Perfil</Button>
+      <Button mode="contained" style={{ marginVertical: 10, width: 260, backgroundColor: '#AE1131', borderRadius: 8 }} labelStyle={{ color: '#fff', fontSize: 18, fontWeight: 'bold' }} onPress={() => navigation.navigate('Main', { screen: 'Profile', params: { user } })}>Perfil</Button>
     </View>
   );
 }
@@ -93,7 +94,9 @@ function MainTabs({ route }: any) {
       </Tab.Screen>
       <Tab.Screen name="Planner" component={Planner} options={{ title: 'Planificador' }} />
       <Tab.Screen name="WishedSubjects" component={WishedSubjects} options={{ title: 'Materias' }} />
-      <Tab.Screen name="Profile" component={Profile} options={{ title: 'Perfil' }} />
+      <Tab.Screen name="Profile" options={{ title: 'Perfil' }}>
+        {props => <Profile {...props} user={user} />}
+      </Tab.Screen>
     </Tab.Navigator>
   );
 }
@@ -102,14 +105,16 @@ export default function App() {
   return (
     <PaperProvider>
       <SafeAreaProvider>
-        <NavigationContainer>
-          <Stack.Navigator initialRouteName="Login" screenOptions={{ headerShown: false }}>
-            <Stack.Screen name="Login" component={Login} />
-            <Stack.Screen name="Main" component={MainTabs} />
-            <Stack.Screen name="Aprobadas" component={Aprobadas} options={{ title: 'Materias Aprobadas' }} />
-            <Stack.Screen name="WorkTime" component={WorkTime} options={{ title: 'Horario Laboral' }} />
-          </Stack.Navigator>
-        </NavigationContainer>
+        <UserProvider>
+          <NavigationContainer>
+            <Stack.Navigator initialRouteName="Login" screenOptions={{ headerShown: false }}>
+              <Stack.Screen name="Login" component={Login} />
+              <Stack.Screen name="Main" component={MainTabs} />
+              <Stack.Screen name="Aprobadas" component={Aprobadas} options={{ title: 'Materias Aprobadas' }} />
+              <Stack.Screen name="WorkTime" component={WorkTime} options={{ title: 'Horario Laboral' }} />
+            </Stack.Navigator>
+          </NavigationContainer>
+        </UserProvider>
       </SafeAreaProvider>
     </PaperProvider>
   );

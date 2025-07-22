@@ -3,9 +3,10 @@ import { View } from 'react-native';
 import { Card, Text, Button, ProgressBar } from 'react-native-paper';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import materias from '../mock/materias.json';
+import { useUser } from './Home/UserContext';
 
 export default function Profile(props: any) {
-  const user = props.user || { name: 'Usuario', career: 'Sin datos' };
+  const { user } = useUser();
   const [approvedSubjects, setApprovedSubjects] = useState<string[]>([]);
 
   useEffect(() => {

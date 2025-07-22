@@ -3,12 +3,14 @@ import { View, Image } from 'react-native';
 import { TextInput, Button, Snackbar, Text, Card } from 'react-native-paper';
 import users from '../mock/users.json';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useUser } from './Home/UserContext';
 
 export default function Login({ navigation }: any) {
   const [inputUsername, setInputUsername] = useState('');
   const [inputPassword, setInputPassword] = useState('');
   const [snackbarVisible, setSnackbarVisible] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState('');
+  const { setUser } = useUser();
 
   const onSubmit = () => {
     const user = users.find(
@@ -16,6 +18,7 @@ export default function Login({ navigation }: any) {
     );
     if (user) {
       AsyncStorage.setItem('user', JSON.stringify(user));
+      setUser(user);
       navigation.replace('Main', { user });
     } else {
       setSnackbarMessage('Usuario o Contraseña Incorrecta');
