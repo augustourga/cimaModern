@@ -3,10 +3,12 @@ import { View, ScrollView } from 'react-native';
 import { Card, Text, Checkbox, Button, Divider, ProgressBar } from 'react-native-paper';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import materias from '../mock/materias.json';
+import { CommonActions, useNavigation } from '@react-navigation/native';
 
 const STORAGE_KEY_APPROVED = 'approvedSubjects';
 
-export default function Aprobadas({ navigation }: any) {
+export default function Aprobadas({ navigation: navProp }: any) {
+  const navigation = useNavigation();
   const [approvedSubjects, setApprovedSubjects] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -25,6 +27,11 @@ export default function Aprobadas({ navigation }: any) {
 
   const saveApproved = async () => {
     await AsyncStorage.setItem(STORAGE_KEY_APPROVED, JSON.stringify(approvedSubjects));
+    const user = await AsyncStorage.getItem('user');
+    if (!user) {
+      console.error('No hay usuario en AsyncStorage.');
+      return;
+    }
     navigation.navigate('Main', { screen: 'Home', params: { refresh: Date.now() } });
   };
 

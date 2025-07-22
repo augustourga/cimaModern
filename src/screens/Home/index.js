@@ -1,5 +1,7 @@
-import React from 'react';
-import { View, Linking } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, Linking, Text } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useFocusEffect, useNavigation, useRoute } from '@react-navigation/native';
 
 import Button from '../../component/Button';
 
@@ -18,9 +20,30 @@ const Options = [
   }
 ];
 
-function Home({ navigation }) {
+function Home(props) {
+  const user = props.user || { name: 'Usuario', career: 'Sin datos' };
+  const [approvedSubjects, setApprovedSubjects] = useState([]);
+  const navigation = props.navigation;
+  const route = props.route;
+
+  useFocusEffect(
+    React.useCallback(() => {
+      AsyncStorage.getItem('approvedSubjects').then(data => {
+        if (data) setApprovedSubjects(JSON.parse(data));
+        else setApprovedSubjects([]);
+      });
+    }, [route.params?.refresh])
+  );
+
   return (
     <View style={styles.container}>
+      {user && (
+        <View style={{ marginBottom: 16 }}>
+          <Text style={{ fontSize: 20, fontWeight: 'bold', color: '#AE1131' }}>Hola, {user.name}</Text>
+          <Text style={{ fontSize: 16, color: '#222' }}>Carrera: {user.career}</Text>
+          <Text style={{ fontSize: 16, color: '#222', marginTop: 4 }}>Materias aprobadas: {approvedSubjects.length}</Text>
+        </View>
+      )}
       {Options.map(option => (
         <Button
           key={option.route}

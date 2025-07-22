@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, Image } from 'react-native';
 import { TextInput, Button, Snackbar, Text, Card } from 'react-native-paper';
 import users from '../mock/users.json';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function Login({ navigation }: any) {
   const [inputUsername, setInputUsername] = useState('');
@@ -14,6 +15,7 @@ export default function Login({ navigation }: any) {
       (u) => u.username === inputUsername && u.password === inputPassword
     );
     if (user) {
+      AsyncStorage.setItem('user', JSON.stringify(user));
       navigation.replace('Main', { user });
     } else {
       setSnackbarMessage('Usuario o Contraseña Incorrecta');

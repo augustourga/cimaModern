@@ -5,6 +5,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import materias from '../mock/materias.json';
 import horariosPorMateria from '../mock/horarios.json';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { useFocusEffect } from '@react-navigation/native';
 
 const STORAGE_KEY_WISHED = 'wishedSubjects';
 const STORAGE_KEY_APPROVED = 'approvedSubjects';
@@ -136,20 +137,23 @@ export default function Planner() {
   const [altIdx, setAltIdx] = useState(0);
   const [showAll, setShowAll] = useState(false);
 
-  useEffect(() => {
-    Promise.all([
-      AsyncStorage.getItem(STORAGE_KEY_WISHED),
-      AsyncStorage.getItem(STORAGE_KEY_APPROVED),
-      AsyncStorage.getItem(STORAGE_KEY_WORKTIME),
-      AsyncStorage.getItem(STORAGE_KEY_FAVORITE)
-    ]).then(([wished, approved, work, fav]) => {
-      if (wished) setWishedSubjects(JSON.parse(wished));
-      if (approved) setApprovedSubjects(JSON.parse(approved));
-      if (work) setWorkTime(JSON.parse(work));
-      if (fav) setFavorite(JSON.parse(fav));
-      setLoading(false);
-    });
-  }, []);
+  useFocusEffect(
+    React.useCallback(() => {
+      setLoading(true);
+      Promise.all([
+        AsyncStorage.getItem(STORAGE_KEY_WISHED),
+        AsyncStorage.getItem(STORAGE_KEY_APPROVED),
+        AsyncStorage.getItem(STORAGE_KEY_WORKTIME),
+        AsyncStorage.getItem(STORAGE_KEY_FAVORITE)
+      ]).then(([wished, approved, work, fav]) => {
+        if (wished) setWishedSubjects(JSON.parse(wished));
+        if (approved) setApprovedSubjects(JSON.parse(approved));
+        if (work) setWorkTime(JSON.parse(work));
+        if (fav) setFavorite(JSON.parse(fav));
+        setLoading(false);
+      });
+    }, [])
+  );
 
   useEffect(() => {
     if (!loading) {

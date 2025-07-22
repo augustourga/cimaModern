@@ -4,8 +4,8 @@ import { Card, Text, Button, ProgressBar } from 'react-native-paper';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import materias from '../mock/materias.json';
 
-export default function Profile({ route, navigation }: any) {
-  const user = route.params?.user || { name: 'Usuario', career: 'Sin datos' };
+export default function Profile(props: any) {
+  const user = props.user || { name: 'Usuario', career: 'Sin datos' };
   const [approvedSubjects, setApprovedSubjects] = useState<string[]>([]);
 
   useEffect(() => {
@@ -25,13 +25,13 @@ export default function Profile({ route, navigation }: any) {
           <Text style={{ fontSize: 18, color: '#AE1131', marginBottom: 12 }}>Carrera: <Text style={{ color: '#222' }}>{user.career}</Text></Text>
         </Card.Content>
       </Card>
-      <Button style={{ marginTop: 24, backgroundColor: '#AE1131', borderRadius: 8 }} mode="contained" labelStyle={{ color: '#fff', fontSize: 18, fontWeight: 'bold' }} onPress={() => navigation.navigate('Aprobadas')}>
+      <Button style={{ marginTop: 24, backgroundColor: '#AE1131', borderRadius: 8 }} mode="contained" labelStyle={{ color: '#fff', fontSize: 18, fontWeight: 'bold' }} onPress={() => props.navigation.navigate('Aprobadas')}>
         Configura tus materias aprobadas
       </Button>
-      <Button style={{ marginTop: 16, backgroundColor: '#AE1131', borderRadius: 8 }} mode="contained" labelStyle={{ color: '#fff', fontSize: 18, fontWeight: 'bold' }} onPress={() => navigation.navigate('WorkTime')}>
+      <Button style={{ marginTop: 16, backgroundColor: '#AE1131', borderRadius: 8 }} mode="contained" labelStyle={{ color: '#fff', fontSize: 18, fontWeight: 'bold' }} onPress={() => props.navigation.navigate('WorkTime')}>
         Configura tu horario laboral
       </Button>
-      <Button style={{ marginTop: 16, borderRadius: 8 }} mode="outlined" labelStyle={{ fontSize: 18, fontWeight: 'bold' }} onPress={() => navigation.replace('Login')}>
+      <Button style={{ marginTop: 16, borderRadius: 8 }} mode="outlined" labelStyle={{ fontSize: 18, fontWeight: 'bold' }} onPress={() => props.navigation.replace('Login')}>
         Cerrar sesión
       </Button>
     </View>
