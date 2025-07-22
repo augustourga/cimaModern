@@ -1,0 +1,16 @@
+[
+  {
+    "id": 1,
+    "materias": [
+      { "nombre": "Análisis Matemático I", "dia": "Lunes", "hora": "08:00-10:00", "aula": "A1" },
+      { "nombre": "Álgebra y Geometría Analítica", "dia": "Martes", "hora": "10:00-12:00", "aula": "B2" }
+    ]
+  },
+  {
+    "id": 2,
+    "materias": [
+      { "nombre": "Matemática Discreta", "dia": "Miércoles", "hora": "14:00-16:00", "aula": "C3" },
+      { "nombre": "Sistemas y Organizaciones", "dia": "Jueves", "hora": "16:00-18:00", "aula": "D4" }
+    ]
+  }
+] 

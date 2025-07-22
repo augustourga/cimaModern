@@ -1,0 +1,177 @@
+{
+  "Álgebra y Geometría Analítica": [
+    { "dia": "Lunes", "inicio": "08:00", "fin": "10:00" },
+    { "dia": "Miércoles", "inicio": "14:00", "fin": "16:00" },
+    { "dia": "Viernes", "inicio": "18:00", "fin": "20:00" }
+  ],
+  "Análisis Matemático I": [
+    { "dia": "Martes", "inicio": "10:00", "fin": "12:00" },
+    { "dia": "Jueves", "inicio": "16:00", "fin": "18:00" },
+    { "dia": "Viernes", "inicio": "20:00", "fin": "22:00" }
+  ],
+  "Matemática Discreta": [
+    { "dia": "Viernes", "inicio": "08:00", "fin": "10:00" },
+    { "dia": "Miércoles", "inicio": "14:00", "fin": "16:00" },
+    { "dia": "Lunes", "inicio": "18:00", "fin": "20:00" }
+  ],
+  "Algoritmos y Estructura de Datos": [
+    { "dia": "Lunes", "inicio": "10:00", "fin": "12:00" },
+    { "dia": "Martes", "inicio": "16:00", "fin": "18:00" },
+    { "dia": "Jueves", "inicio": "20:00", "fin": "22:00" }
+  ],
+  "Arquitectura de Computadoras": [
+    { "dia": "Martes", "inicio": "08:00", "fin": "10:00" },
+    { "dia": "Jueves", "inicio": "14:00", "fin": "16:00" },
+    { "dia": "Viernes", "inicio": "18:00", "fin": "20:00" }
+  ],
+  "Sistemas y Organizaciones": [
+    { "dia": "Lunes", "inicio": "12:00", "fin": "14:00" },
+    { "dia": "Miércoles", "inicio": "16:00", "fin": "18:00" },
+    { "dia": "Viernes", "inicio": "20:00", "fin": "22:00" }
+  ],
+  "Química": [
+    { "dia": "Martes", "inicio": "08:00", "fin": "10:00" },
+    { "dia": "Jueves", "inicio": "14:00", "fin": "16:00" },
+    { "dia": "Viernes", "inicio": "18:00", "fin": "20:00" }
+  ],
+  "Ingeniería y Sociedad": [
+    { "dia": "Viernes", "inicio": "10:00", "fin": "12:00" },
+    { "dia": "Miércoles", "inicio": "14:00", "fin": "16:00" },
+    { "dia": "Lunes", "inicio": "18:00", "fin": "20:00" }
+  ],
+  "Análisis de Sistemas": [
+    { "dia": "Lunes", "inicio": "08:00", "fin": "10:00" },
+    { "dia": "Jueves", "inicio": "16:00", "fin": "18:00" },
+    { "dia": "Martes", "inicio": "20:00", "fin": "22:00" }
+  ],
+  "Sistemas de Representación": [
+    { "dia": "Martes", "inicio": "10:00", "fin": "12:00" },
+    { "dia": "Viernes", "inicio": "14:00", "fin": "16:00" },
+    { "dia": "Miércoles", "inicio": "18:00", "fin": "20:00" }
+  ],
+  "Análisis Matemático II": [
+    { "dia": "Lunes", "inicio": "12:00", "fin": "14:00" },
+    { "dia": "Miércoles", "inicio": "16:00", "fin": "18:00" },
+    { "dia": "Viernes", "inicio": "20:00", "fin": "22:00" }
+  ],
+  "Sintaxis y Semántica de los Lenguajes": [
+    { "dia": "Martes", "inicio": "08:00", "fin": "10:00" },
+    { "dia": "Jueves", "inicio": "14:00", "fin": "16:00" },
+    { "dia": "Lunes", "inicio": "18:00", "fin": "20:00" }
+  ],
+  "Física I": [
+    { "dia": "Lunes", "inicio": "10:00", "fin": "12:00" },
+    { "dia": "Miércoles", "inicio": "16:00", "fin": "18:00" },
+    { "dia": "Viernes", "inicio": "20:00", "fin": "22:00" }
+  ],
+  "Paradigmas de Programación": [
+    { "dia": "Martes", "inicio": "12:00", "fin": "14:00" },
+    { "dia": "Jueves", "inicio": "16:00", "fin": "18:00" },
+    { "dia": "Lunes", "inicio": "20:00", "fin": "22:00" }
+  ],
+  "Inglés I": [
+    { "dia": "Viernes", "inicio": "08:00", "fin": "10:00" },
+    { "dia": "Miércoles", "inicio": "14:00", "fin": "16:00" },
+    { "dia": "Martes", "inicio": "18:00", "fin": "20:00" }
+  ],
+  "Probabilidad y Estadística": [
+    { "dia": "Lunes", "inicio": "14:00", "fin": "16:00" },
+    { "dia": "Jueves", "inicio": "08:00", "fin": "10:00" },
+    { "dia": "Viernes", "inicio": "18:00", "fin": "20:00" }
+  ],
+  "Diseño de Sistemas": [
+    { "dia": "Martes", "inicio": "10:00", "fin": "12:00" },
+    { "dia": "Viernes", "inicio": "14:00", "fin": "16:00" },
+    { "dia": "Miércoles", "inicio": "20:00", "fin": "22:00" }
+  ],
+  "Sistemas Operativos": [
+    { "dia": "Lunes", "inicio": "08:00", "fin": "10:00" },
+    { "dia": "Miércoles", "inicio": "14:00", "fin": "16:00" },
+    { "dia": "Jueves", "inicio": "18:00", "fin": "20:00" }
+  ],
+  "Física II": [
+    { "dia": "Martes", "inicio": "12:00", "fin": "14:00" },
+    { "dia": "Jueves", "inicio": "16:00", "fin": "18:00" },
+    { "dia": "Viernes", "inicio": "20:00", "fin": "22:00" }
+  ],
+  "Economía": [
+    { "dia": "Viernes", "inicio": "10:00", "fin": "12:00" },
+    { "dia": "Miércoles", "inicio": "14:00", "fin": "16:00" },
+    { "dia": "Lunes", "inicio": "18:00", "fin": "20:00" }
+  ],
+  "Gestión de Datos": [
+    { "dia": "Lunes", "inicio": "16:00", "fin": "18:00" },
+    { "dia": "Jueves", "inicio": "08:00", "fin": "10:00" },
+    { "dia": "Martes", "inicio": "20:00", "fin": "22:00" }
+  ],
+  "Inglés II": [
+    { "dia": "Martes", "inicio": "14:00", "fin": "16:00" },
+    { "dia": "Viernes", "inicio": "10:00", "fin": "12:00" },
+    { "dia": "Jueves", "inicio": "18:00", "fin": "20:00" }
+  ],
+  "Matemática Superior": [
+    { "dia": "Lunes", "inicio": "08:00", "fin": "10:00" },
+    { "dia": "Miércoles", "inicio": "14:00", "fin": "16:00" },
+    { "dia": "Viernes", "inicio": "20:00", "fin": "22:00" }
+  ],
+  "Legislación": [
+    { "dia": "Jueves", "inicio": "10:00", "fin": "12:00" },
+    { "dia": "Viernes", "inicio": "14:00", "fin": "16:00" },
+    { "dia": "Lunes", "inicio": "18:00", "fin": "20:00" }
+  ],
+  "Administración de Recursos": [
+    { "dia": "Martes", "inicio": "08:00", "fin": "10:00" },
+    { "dia": "Jueves", "inicio": "16:00", "fin": "18:00" },
+    { "dia": "Miércoles", "inicio": "20:00", "fin": "22:00" }
+  ],
+  "Ingeniería de Software": [
+    { "dia": "Lunes", "inicio": "10:00", "fin": "12:00" },
+    { "dia": "Miércoles", "inicio": "14:00", "fin": "16:00" },
+    { "dia": "Viernes", "inicio": "18:00", "fin": "20:00" }
+  ],
+  "Teoría de Control": [
+    { "dia": "Martes", "inicio": "12:00", "fin": "14:00" },
+    { "dia": "Jueves", "inicio": "08:00", "fin": "10:00" },
+    { "dia": "Lunes", "inicio": "20:00", "fin": "22:00" }
+  ],
+  "Comunicaciones": [
+    { "dia": "Viernes", "inicio": "16:00", "fin": "18:00" },
+    { "dia": "Miércoles", "inicio": "10:00", "fin": "12:00" },
+    { "dia": "Martes", "inicio": "20:00", "fin": "22:00" }
+  ],
+  "Redes de Información": [
+    { "dia": "Lunes", "inicio": "14:00", "fin": "16:00" },
+    { "dia": "Jueves", "inicio": "12:00", "fin": "14:00" },
+    { "dia": "Viernes", "inicio": "20:00", "fin": "22:00" }
+  ],
+  "Investigación Operativa": [
+    { "dia": "Martes", "inicio": "08:00", "fin": "10:00" },
+    { "dia": "Viernes", "inicio": "10:00", "fin": "12:00" },
+    { "dia": "Miércoles", "inicio": "18:00", "fin": "20:00" }
+  ],
+  "Simulación": [
+    { "dia": "Lunes", "inicio": "16:00", "fin": "18:00" },
+    { "dia": "Miércoles", "inicio": "08:00", "fin": "10:00" },
+    { "dia": "Jueves", "inicio": "20:00", "fin": "22:00" }
+  ],
+  "Proyecto Final": [
+    { "dia": "Jueves", "inicio": "14:00", "fin": "16:00" },
+    { "dia": "Viernes", "inicio": "16:00", "fin": "18:00" },
+    { "dia": "Martes", "inicio": "20:00", "fin": "22:00" }
+  ],
+  "Inteligencia Artificial": [
+    { "dia": "Martes", "inicio": "10:00", "fin": "12:00" },
+    { "dia": "Jueves", "inicio": "16:00", "fin": "18:00" },
+    { "dia": "Lunes", "inicio": "20:00", "fin": "22:00" }
+  ],
+  "Administración Gerencial": [
+    { "dia": "Lunes", "inicio": "08:00", "fin": "10:00" },
+    { "dia": "Miércoles", "inicio": "14:00", "fin": "16:00" },
+    { "dia": "Viernes", "inicio": "18:00", "fin": "20:00" }
+  ],
+  "Sistemas de Gestión": [
+    { "dia": "Martes", "inicio": "12:00", "fin": "14:00" },
+    { "dia": "Jueves", "inicio": "08:00", "fin": "10:00" },
+    { "dia": "Miércoles", "inicio": "20:00", "fin": "22:00" }
+  ]
+} 

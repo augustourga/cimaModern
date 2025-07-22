@@ -1,118 +1,82 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
+import * as React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { Provider as PaperProvider, Button } from 'react-native-paper';
+import { View, Linking } from 'react-native';
+import Login from './src/screens/Login';
+import WishedSubjects from './src/screens/WishedSubjects';
+import Profile from './src/screens/Profile';
+import Planner from './src/screens/Planner';
+import Aprobadas from './src/screens/Aprobadas';
+import WorkTime from './src/screens/WorkTime';
 
-import React from 'react';
-import type {PropsWithChildren} from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
+const Stack = createNativeStackNavigator();
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+const Options = [
+  { text: 'Planificar Cursada', route: 'Planner' },
+  { text: 'Personalizar Alternativas', route: 'WishedSubjects' },
+  { text: 'Perfil', route: 'Profile' },
+  {
+    text: 'Siga',
+    route: 'Siga',
+    onClick: () => {
+      Linking.openURL('http://siga.frba.utn.edu.ar/');
+    },
+  },
+];
 
-type SectionProps = PropsWithChildren<{
-  title: string;
-}>;
-
-function Section({children, title}: SectionProps): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
+function HomeScreen({ navigation, route }: any) {
+  const user = route.params?.user;
+  const wishedSubjects = route.params?.wishedSubjects || [];
   return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', padding: 24 }}>
+      {Options.map(option => (
+        <Button
+          key={option.route}
+          mode="contained"
+          style={{ marginVertical: 8, width: 250, backgroundColor: '#AE1131' }}
+          labelStyle={{ color: '#fff' }}
+          onPress={
+            option.route === 'Profile'
+              ? () => navigation.navigate('Profile', { user, wishedSubjects })
+              : option.onClick || (() => navigation.navigate(option.route))
+          }
+        >
+          {option.text}
+        </Button>
+      ))}
     </View>
   );
 }
 
-function App(): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
+function PlaceholderScreen({ route }: any) {
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <Button mode="outlined" disabled>
+        {route.name} (En construcción)
+      </Button>
+    </View>
   );
 }
 
-const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-});
-
-export default App;
+export default function App() {
+  return (
+    <PaperProvider>
+      <SafeAreaProvider>
+        <NavigationContainer>
+          <Stack.Navigator initialRouteName="Login">
+            <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
+            <Stack.Screen name="Home" component={HomeScreen} options={{ title: 'CIMA - Inicio' }} />
+            <Stack.Screen name="Planner" component={Planner} />
+            <Stack.Screen name="WishedSubjects" component={WishedSubjects} />
+            <Stack.Screen name="Profile" component={Profile} />
+            <Stack.Screen name="Aprobadas" component={Aprobadas} options={{ title: 'Materias Aprobadas' }} />
+            <Stack.Screen name="Siga" component={PlaceholderScreen} />
+            <Stack.Screen name="WorkTime" component={WorkTime} options={{ title: 'Horario Laboral' }} />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </SafeAreaProvider>
+    </PaperProvider>
+  );
+}
